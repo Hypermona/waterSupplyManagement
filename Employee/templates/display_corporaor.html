@@ -1,0 +1,258 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row">
+    <div class="col-2 mx-3 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+           aria-controls="v-pills-home" aria-selected="true">Employees</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+           aria-controls="v-pills-profile" aria-selected="false">Consumers</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+           aria-controls="v-pills-messages" aria-selected="false">Bills</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+           aria-controls="v-pills-settings" aria-selected="false">Complaints</a>
+    </div>
+    <div class="col-9 tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">User Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email Id</th>
+                    <th scope="col">Date Of birth</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Address</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for e in employees %}
+                <tr>
+                    <th scope="row">{{e.id}}</th>
+                    <td>{{e.first_name}} {{e.last_name}}</td>
+                    <td>{{e.email_id}}</td>
+                    <td>{{e.dob}}</td>
+                    <td>{{e.salary}}</td>
+                    <td>{{e.gender}}</td>
+                    <td>{{e.address}}</td>
+                    <td><a class="btn btn-info" href="/updateForm?type_=employee&username={{e.id}}">Update</a></td>
+                    <td><a class="btn btn-danger" data-toggle="modal" data-target="#employeemodal">Delete</a></td>
+                </tr>
+                <!-- Modal -->
+                <div class="modal fade" id="employeemodal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Bill</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-danger font-weight-bold">Once you delete, there is no going back. Please
+                                    be
+                                    certain.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <form action='/displayCorp' method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="Employee" name="value">
+                                    <input type="hidden" value="{{e.id}}" name="id">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">User Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email Id</th>
+                    <th scope="col">Date Of birth</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Address</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for c in consumers %}
+                <tr>
+                    <th scope="row">{{c.id}}</th>
+                    <td>{{c.first_name}} {{c.last_name}}</td>
+                    <td>{{c.email_id}}</td>
+                    <td>{{c.dob}}</td>
+                    <td>{{c.salary}}</td>
+                    <td>{{c.gender}}</td>
+                    <td>{{c.address}}</td>
+                    <td><a class="btn btn-info" href="/updateForm?type_=consumer&username={{c.id}}">Update</a></td>
+                    <td><a class="btn btn-danger" data-toggle="modal" data-target="#consumermodal">Delete</a></td>
+                </tr>
+                <div class="modal fade" id="consumermodal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Bill</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-danger font-weight-bold">Once you delete, there is no going back. Please
+                                    be
+                                    certain.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <form action='/displayCorp' method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="Consumer" name="value">
+                                    <input type="hidden" value="{{c.id}}" name="id">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Bill NO</th>
+                    <th scope="col">Issue Date</th>
+                    <th scope="col">Consumer</th>
+                    <th scope="col">Collector</th>
+                    <th scope="col">Consumed</th>
+                    <th scope="col">Is Paid</th>
+                    <th scope="col">Disconnection Date</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for b in bills %}
+                <tr>
+                    <th scope="row">{{b.bill_id}}</th>
+                    <td>{{b.read_date}}</td>
+                    <td>{{b.consumer}}</td>
+                    <td>{{b.collector}}</td>
+                    <td>{{b.read_value}} Litres</td>
+                    {% if b.is_paid %}
+                    <td class="text-success font-weight-bold">Paid</td>
+                    {% else %}
+                    <td class="text-danger font-weight-bold">Not Paid</td>
+                    {% endif %}
+                    <!--      <td>{{b.is_paid}}</td>-->
+                    <td>{{b.disconnection_date}}</td>
+                    <td><a class="btn btn-info" href="/updateForm?type_=bill&username={{b.bill_id}}">Update</a></td>
+                    <td><a class="btn btn-danger" data-toggle="modal" data-target="#billmodal">Delete</a></td>
+                </tr>
+                <div class="modal fade" id="billmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Bill</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-danger font-weight-bold">Once you delete, there is no going back. Please
+                                    be
+                                    certain.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <form action='/displayCorp' method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="WaterBill" name="value">
+                                    <input type="hidden" value="{{b.bill_id}}" name="id">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Complainer</th>
+                    <th scope="col">Complaint Data</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cm in complaints %}
+                <tr>
+                    <th scope="row">{{cm.consumer}}</th>
+                    <td>{{cm.complaint_data}}</td>
+                    <td>{% if cm.is_resolved %}
+                    <h5><span class="badge badge-pill badge-success">Resolved</span></h5>
+                    {% endif %}</td>
+                    <td><a class="btn btn-info" href="/updateForm?type_=complaint&username={{cm.id}}">Update</a></td>
+                    <td><a class="btn btn-danger" data-toggle="modal" data-target="#complaintmodal">Delete</a></td>
+                </tr>
+                <div class="modal fade" id="complaintmodal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Complaint</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-danger font-weight-bold">Once you delete, there is no going back. Please
+                                    be
+                                    certain.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <form action='/displayCorp' method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="Complaint" name="value">
+                                    <input type="hidden" value="{{cm.id}}" name="id">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+{% load static %}
+<div class="w-100">
+    <div style="display: flex;
+  justify-content: space-around;
+  align-items: center;width:100%;" id="bimage">
+        {% load static %}
+        <div></div>
+
+        <div>
+        {% if user.gender == "Male" %}
+            <img class="card-img-top" src="{% static 'img/male_avtr.png' %}" alt="Card image"
+             style="heigth:200px;width:200px">
+        {% elif user.gender == "Female" %}
+        <img class="card-img-top" src="{% static 'img/femaleavtr.png' %}" alt="Card image"
+             style="heigth:200px;width:200px">
+        {% else %}
+        <img class="card-img-top" src="{% static 'img/unknown_avtr.jpg' %}" alt="Card image"
+             style="heigth:200px;width:200px ">
+        {% endif %}
+        <div class="card-body">
+            <h4 class="card-title">{{user.first_name}} {{user.last_name}}</h4>
+            <p class="card-text">Username : {{user.id}}</p>
+            <p class="card-text">Email : {{user.email_id}}</p>
+            <p class="card-text">Address : {{user.address}}</p>
+            <p class="card-text">Date Of Birth : {{user.dob}}</p>
+            <p class="card-text">Gender : {{user.gender}}</p>
+            {% if user_type == "consumer" %}
+            <a href="/updateForm?type_=consumer&username={{user.id}}" class="btn btn-primary">Edit Profile</a>
+            {% elif user_type == "employee" %}
+            <a href="/updateForm?type_=employee&username={{user.id}}" class="btn btn-primary">Edit Profile</a>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

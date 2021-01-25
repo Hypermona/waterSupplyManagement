@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block content %}
+<form class="container text-center" action="/updateForm?type_=complaint&username={{complaint.consumer}}" method="post">
+    {% csrf_token %}
+    <div class="card text-center">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title">Complaint Form</h5>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Consumer</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            readonly
+                            class="form-control-plaintext"
+                            name="consumer"
+                            value="{{complaint.consumer}}"
+                            id="staticEmail"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="consumername" class="col-sm-2 col-form-label"
+                >Complaint Data</label
+                >
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            readonly
+                            class="form-control-plaintext"
+                            id="consumername"
+                            name="complaint_data"
+                            value="{{complaint.complaint_data}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="collector" class="col-sm-2 col-form-label">Is Resolved</label>
+                <div class="col-sm-1">
+                    <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="collector"
+                            data-val="True"
+                            autofocus
+                            name="is_resolved"
+                            value=True
+                    />
+                </div>
+            </div>
+            <input type="hidden" name="id" value={{complaint.id}}>
+            <input type="hidden" name="type_" value="complaint">
+            <input type="hidden" name="username" value={{complaint.consumer}}>
+            <button type="submit" class="btn btn-primary btn-lg ml-5">Update Complaint</button>
+        </div>
+        <div class="card-footer text-muted">
+            2 days ago
+        </div>
+    </div>
+</form>
+{% endblock %}

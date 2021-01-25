@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<form class="col-lg-4 mx-auto my-5 border rounded-lg p-3 shadow-lg" action="/login" method="post" name="Consumer" style="width:500px">
+    {% csrf_token %}
+    {% if errorMessage %}
+        <p class="alert alert-danger">{{errorMessage}}</p>
+    {% endif %}
+    {% if user == 'consumer' %}
+     <h2 class="py-2 text-center">Consumer Log In</h2>
+    {% elif user == 'employee'%}
+     <h2 class="py-2 text-center">Employee Log In</h2>
+    {% elif user == 'corporator'%}
+     <h2 class="py-2 text-center">Corp Officer Log In</h2>
+    {% else%}
+     <h2 class="py-2 text-center">Log In Here</h2>
+    {% endif %}
+    <input type="hidden" value="{{ user }}" name="user">
+    <div class="form-group">
+        <label for="username"><strong>Username</strong></label>
+        <input type="text" name="username" class="form-control form-control-sm" id="username" aria-describedby="usernameHelp" placeholder="hackerman" required autofocus>
+        <small id="usernameHelp" class="form-text text-muted">We'll never share your details with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1"><strong>Password</strong></label>
+        <input type="password" name="password" class="form-control form-control-sm" id="exampleInputPassword1" required>
+    </div>
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <div class="w-100">
+        <button type="submit" class="btn btn-primary btn ml-4" name="user" value="consumer">Consumer</button>
+    <button type="submit" class="btn btn-primary btn ml-1" name="user" value="employee">Meter Reader</button>
+    <button type="submit" class="btn btn-primary btn ml-1" name="user" value="corporator">Corp Officer</button>
+    </div>
+</form>
+
+{% endblock %}

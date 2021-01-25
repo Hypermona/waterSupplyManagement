@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Title</title>
+    <style>
+      .bg {
+        background-image: url('{% static "img/water_bg.jpg" %}');
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .bgnav {
+        background-color: #1e3c77 !important;
+      }
+    </style>
+  </head>
+  <body class="bg">
+    <!--    NavBar-->
+    <div
+      class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm bgnav"
+    >
+      <img
+        class="mr-2"
+        src="{% static 'img/logo.png' %}"
+        alt="My image"
+        width="64"
+        height="64"
+        style="filter: hue-rotate(30deg)"
+      />
+      <h1 class="my-0 mr-md-auto font-weight-normal text-white">
+        <strong>WSM</strong>
+      </h1>
+
+      {% if not request.session.user %}
+      <div class="btn btn-outline-primary btn-sm dropdown mx-3">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="signupDropdownMenuLink"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Register as
+        </a>
+        <div class="dropdown-menu px-2" aria-labelledby="loginDropdownMenuLink">
+          <a
+            class="btn btn-outline-primary btn-block"
+            href="/signup?user=consumer"
+            >Consumer</a
+          >
+          <a
+            class="btn btn-outline-primary btn-block"
+            href="/signup?user=employee"
+            >Meter Reader</a
+          >
+        </div>
+      </div>
+      <div class="btn btn-outline-primary btn-sm dropdown mx-3">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          LogIn as
+        </a>
+        <div
+          class="dropdown-menu px-2"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <a
+            class="btn btn-outline-primary btn-block"
+            href="/login?user=consumer"
+            >Consumer</a
+          >
+          <a
+            class="btn btn-outline-primary btn-block"
+            href="/login?user=employee"
+            >Meter Reader</a
+          >
+          <a
+            class="btn btn-outline-primary btn-block"
+            href="/login?user=corporator"
+            >Corp Officer</a
+          >
+        </div>
+      </div>
+      {% elif request.session.user %}
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="btn btn-outline-primary" href="/logout">logout</a>
+      </nav>
+
+      {% endif %}
+    </div>
+
+    <!--end of NavBar-->
+    <div class="container-fluid">{% block content %} {% endblock %}</div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <script>
+      notifyUser = function () {
+        document.getElementById("form2").submit();
+      };
+      generateBill = function () {
+        document.getElementById("form1").submit();
+      };
+    </script>
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+-->
+  </body>
+</html>

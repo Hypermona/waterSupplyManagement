@@ -1,0 +1,125 @@
+{% extends 'base.html' %} {% block content %}
+<form class="container" action="/billGen" method="post" id="form1">
+  {% csrf_token %}
+  <div class="card text-center">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+  <div class="form-group row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Ward</label>
+    <div class="col-sm-10">
+      <input
+        type="text"
+        class="form-control-plaintext"
+        name="ward"
+        value=1
+        id="staticEmail"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="consumername" class="col-sm-2 col-form-label">Consumer</label>
+    <div class="col-sm-10">
+      <input
+        type="text"
+        class="form-control"
+        id="consumername"
+        name="consumer"
+
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="collector" class="col-sm-2 col-form-label">Collector</label>
+    <div class="col-sm-10">
+      <input
+        type="text"
+        readonly
+        class="form-control-plaintext"
+        id="collector"
+        name="collector"
+         value={{employee.id}}
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Amount" class="col-sm-2 col-form-label">Amount</label>
+    <div class="col-sm-10">
+      <input
+        type="text"
+        class="form-control"
+        id="Amount"
+        name="amount"
+        placeholder="enter amount"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Consumed" class="col-sm-2 col-form-label">Consumed</label>
+    <div class="col-sm-10">
+      <input
+        type="text"
+        class="form-control"
+        id="Consumed"
+        name="read_value"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Date" class="col-sm-2 col-form-label">Date</label>
+    <div class="col-sm-10">
+      <input
+        type="date"
+        class="form-control"
+        id="Date"
+        name="read_date"
+        placeholder="todays date"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="End" class="col-sm-2 col-form-label">End Date</label>
+    <div class="col-sm-10">
+      <input
+        type="date"
+        class="form-control"
+        id="End"
+        name="due_date"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Disconnection" class="col-sm-2 col-form-label"
+      >Disconnection Date</label
+    >
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="Disconnection"
+      name="disconnection_date">
+    </div>
+  </div>
+  <button type="button" class="btn btn-info btn-lg" onclick="notifyUser()">Notify User</button>
+  <button type="button" class="btn btn-primary btn-lg" onclick="generateBill()">Generate Bill</button>
+</form>
+<form
+  action="https://formspree.io/f/xpzobznv"
+  method="POST"
+  hidden
+  id="form2"
+>
+  <label>
+    Your email:
+    <input type="text" name="from" value="WaterSupplyManagement" hidden>
+  </label>
+  <label>
+    Your message:
+    <textarea name="Subject" hidden >Your monthly water bill is successfully generated</textarea>
+  </label>
+  <!-- your other form fields go here -->
+
+  <button type="submit" hidden>Send</button>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %} {% block content %}
+<form class="container" action="/updateForm?type_=employee&username={{employee.id}}" method="post">
+    {% csrf_token %}
+    <div class="card text-center ">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title">Employee Form</h5>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">First Name</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            class="form-control"
+                            name="first_name"
+                            value={{employee.first_name}}
+                            id="staticEmail"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="consumername" class="col-sm-2 col-form-label">Last Name</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="consumername"
+                            name="last_name"
+                            value={{employee.last_name}}
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="collector" class="col-sm-2 col-form-label">Email Id</label>
+                <div class="col-sm-10">
+                    <input
+                            type="email"
+                            class="form-control"
+                            id="collector"
+                            name="email_id"
+                            value={{employee.email_id}}
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Amount" class="col-sm-2 col-form-label">Date Of Birth</label>
+                <div class="col-sm-10">
+                    <input
+                            type="date"
+                            class="form-control"
+                            id="Amount"
+                            name="dob"
+                            required
+                            value={{employee.dob|date:"Y-m-d"}}
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Consumed" class="col-sm-2 col-form-label">Address</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="Consumed" rows="2" value={{employee.address}}
+                              name="address"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="slelctgender" class="col-sm-2 col-form-label">Gender</label>
+                <div class="col-sm-10">
+                    <select
+                            class="form-control"
+                            id="slelctgender"
+                            name="gender"
+                            value={{employee.gender}}
+                    >
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" name="type_" value="employee">
+            <input type="hidden" name="username" value={{employee.id}}>
+            <button type="submit" class="btn btn-primary btn-lg ml-5" name="type" value="employee">Update Employee
+            </button>
+        </div>
+        <div class="card-footer text-muted">
+            2 days ago
+        </div>
+    </div>
+</form>
+{% endblock %}

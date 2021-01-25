@@ -1,0 +1,170 @@
+{% extends 'base.html' %} {% block content %} {% if user == 'consumer' %}
+<div
+        class="container"
+        style="
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  "
+>
+    <h1>Welcome {{request.session.user}}</h1>
+    <div class="card shadow text-center" style="width:1200px">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title">Pending Bills</h5>
+        </div>
+        <div class="card-body">
+
+            <div class="d-flex justify-content-center">
+                {% if bills %}
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Bill NO</th>
+                        <th scope="col">Issue Date</th>
+                        <th scope="col">Collector</th>
+                        <th scope="col">Consumed</th>
+                        <th scope="col">Is Paid</th>
+                        <th scope="col">Disconnection Date</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for b in bills %}
+                    <tr>
+                        <th scope="row">{{b.bill_id}}</th>
+                        <td>{{b.read_date}}</td>
+                        <td>{{b.collector}}</td>
+                        <td>{{b.read_value}} Litres</td>
+                        {% if b.is_paid %}
+                        <td class="text-success font-weight-bold">Paid</td>
+                        {% else %}
+                        <td class="text-danger font-weight-bold">Not Paid <a type="submit" class="btn btn-primary"
+                                                                             href="/payment?bill_id={{b.bill_id}}">pay
+                            now</a></td>
+                        {% endif %}
+                        <!--      <td>{{b.is_paid}}</td>-->
+                        <td>{{b.disconnection_date}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            <a href="/allBill?consumer={{request.session.user}}&notpaid=True" class="btn btn-primary">view all</a>
+                {% else %}
+                <div class="alert alert-success px-5" role="alert">
+                    <h4 class="alert-heading">Well done!</h4>
+                    <p>You don't have any pending bills....your all bills are upto date...</p>
+                </div>
+                {% endif %}
+
+        </div>
+        <div class="card-footer text-muted">
+            2 days ago
+        </div>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center">
+
+        <a
+                class="shadow-lg btn btn-primary"
+                href="/showBill?consumer={{request.session.user}}"
+                style="padding: 6vh; margin: 2vh"
+        >
+            <h3>View Latest Bill</h3></a
+        >
+
+        <a
+                class="shadow-lg btn btn-primary"
+                href="/allBill?consumer={{request.session.user}}"
+                style="padding: 6vh"
+        >
+            <h4>View All Bills</h4></a
+        >
+        <a
+                class="shadow-lg btn btn-primary ml-3"
+                href="/profile?user=consumer&username={{request.session.user}}"
+                style="padding: 6vh"
+        >
+            <h4>View Profile</h4></a
+        >
+        <a
+                class="shadow-lg btn btn-primary ml-3"
+                href="/addComplaint?consumer={{request.session.user}}"
+                style="padding: 6vh"
+        >
+            <h4>Add Complaint</h4></a
+        >
+    </div>
+</div>
+{% elif user == 'employee' %}
+<div
+        class="container"
+        style="
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  "
+>
+    <h1>Welcome {{request.session.user}}</h1>
+    <div class="card shadow text-center" style="width:1200px">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title">Pending Bills</h5>
+        </div>
+        <div class="card-body">
+
+            <div class="d-flex justify-content-center">
+                <div style="display: flex; justify-content: center; align-items: center">
+                    <a
+                            class="shadow-lg btn btn-info"
+                            href="/billGen?employee={{request.session.user}}"
+                            style="padding: 8vh; margin: 2vh"
+                    >
+                        <h3>Enter Readings</h3></a
+                    >
+                    <a
+                            class="shadow-lg btn btn-info mr-2"
+                            href="/profile?user=employee&username={{request.session.user}}"
+                            style="padding: 8vh"
+                    >
+                        <h4>View Profile</h4></a
+                    >
+                    <a class="shadow-lg btn btn-info" href="meter?employee={{request.session.user}}" style="padding: 8vh">
+                        <h4>Update Meter Status</h4></a
+                    >
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer text-muted">
+           Updated 2 days ago
+        </div>
+    </div>
+</div>
+{% elif user == 'corporator' %}
+<div
+        class="container"
+        style="
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  "
+>
+    <h1>Welcome {{request.session.user}}</h1>
+    <div style="display: flex; justify-content: center; align-items: center">
+        <a
+                class="shadow-lg btn btn-success"
+                href="displayCorp"
+                style="padding: 8vh; margin: 2vh"
+        >
+            <h3>View all The records</h3></a
+        >
+    </div>
+</div>
+
+{% endif %} {% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %} {% block content %}
+<form class="container" action="/billGen?type_=bill&username={{bill.bill_id}}" method="post">
+    {% csrf_token %}
+    <div class="card text-center">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title">Bill Form</h5>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Ward</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            class="form-control"
+                            name="ward"
+                            value="{{bill.ward}}"
+                            id="staticEmail input"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="consumername" class="col-sm-2 col-form-label">Consumer</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="consumername"
+                            name="consumer"
+                            value="{{bill.consumer}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="collector" class="col-sm-2 col-form-label">Collector</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            readonly
+                            class="form-control-plaintext"
+                            id="collector"
+                            name="collector"
+                            value="{{bill.collector}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Amount" class="col-sm-2 col-form-label">Amount</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="Amount"
+                            name="amount"
+                            value="{{bill.amount}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="isPaid" class="col-sm-2 col-form-label">Is Paid</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="isPaid"
+                            name="amount"
+                            value="{{bill.is_paid}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Consumed" class="col-sm-2 col-form-label">Consumed</label>
+                <div class="col-sm-10">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="Consumed"
+                            name="read_value"
+                            value="{{bill.read_value}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Date" class="col-sm-2 col-form-label">Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="Date" name="read_date"
+                           value={{bill.read_date|date:"Y-m-d"}}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="End" class="col-sm-2 col-form-label">End Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="End" name="due_date"
+                           value={{bill.due_date|date:"Y-m-d"}}/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Disconnection" class="col-sm-2 col-form-label"
+                >Disconnection Date</label
+                >
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="Disconnection"
+                           value={{bill.disconnection_date|date:"Y-m-d"}} name="disconnection_date"
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg ml-5">Update Bill</button>
+        </div>
+        <div class="card-footer text-muted">
+            2 days ago
+        </div>
+    </div>
+</form>
+{% endblock %}

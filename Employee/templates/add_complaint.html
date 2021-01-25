@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/addComplaint" method="post">
+     {% csrf_token %}
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title text-success">Complaint Form</h5>
+
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label for="user" class="col-2"><strong>Complainer</strong></label>
+                <input type="text" class="form-control-plaintext col-2" id="user" name="consumer" value={{consumer}}>
+            </div>
+            <div class="form-group">
+                <label for="data"><strong>Complaint</strong></label>
+                <input type="text" class="form-control" name="data" id="data">
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-info">Send</button>
+        <div class="card-footer text-muted text-warning">
+            1 min ago
+        </div>
+    </div>
+</form>
+{% endblock %}

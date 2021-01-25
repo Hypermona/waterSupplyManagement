@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+<div class="d-flex justify-content-center">
+<table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Bill NO</th>
+                    <th scope="col">Issue Date</th>
+                    <th scope="col">Collector</th>
+                    <th scope="col">Consumed</th>
+                    {% if not is_paid %}
+                    <th scope="col"><a href="/allBill?consumer={{request.session.user}}&notpaid=True" class="nav-item">Is Paid</a></th>
+                    {% else %}
+                    <th scope="col"><a href="/allBill?consumer={{request.session.user}}" class="nav-item">Is Paid</a></th>
+                    {% endif %}
+                    <th scope="col">Disconnection Date</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for b in bills %}
+                <tr>
+                    <th scope="row">{{b.bill_id}}</th>
+                    <td>{{b.read_date}}</td>
+                    <td>{{b.collector}}</td>
+                    <td>{{b.read_value}} Litres</td>
+                    {% if b.is_paid %}
+                    <td class="text-success font-weight-bold">Paid</td>
+                    {% else %}
+                    <td class="text-danger font-weight-bold">Not Paid <a type="submit" class="btn btn-primary" href="/payment?bill_id={{b.bill_id}}">pay now</a></td>
+                    {% endif %}
+                    <!--      <td>{{b.is_paid}}</td>-->
+                    <td>{{b.disconnection_date}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </div>
+{% endblock %}
